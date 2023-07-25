@@ -2,15 +2,31 @@ syntax = "proto3";
 
 package go_proto;
 
-import "pagination.proto";
+import "protos/pagination.proto";
 
-option go_package = "/pb";
+option go_package = "go-grpc/pb/pagination";
+
 
 service UserService {
     rpc GetUsers(Empty) returns (Users);
+    rpc GetUser(Id) returns (User);
+    rpc CreateUser(User) returns (Id);
+    rpc UpdateUser(User) returns (Status);
+    rpc DeleteUser(Id) returns (Status); 
+}
+
+// Req
+message Status {
+    uint32 status = 1;
+}
+
+message Id {
+    string id = 1;
 }
 
 message Empty {};
+
+// end Req
 
 message Users {
     Pagination pagination = 1;
